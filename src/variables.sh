@@ -1,0 +1,4 @@
+BASEPATH=$(dirname ${0})
+SRCPATH=${BASEPATH}/java
+BUILDDIR=${BASEPATH}/build
+
