@@ -1,4 +1,5 @@
 BASEPATH=$(dirname ${0})
-SRCPATH=${BASEPATH}/java
-BUILDDIR=${BASEPATH}/build
+SRCPATH=$(realpath "${BASEPATH}/java")
+BUILDDIR=$(realpath "${BASEPATH}/build")
+DATADIR=$(realpath "${BASEPATH}/../data")
 
