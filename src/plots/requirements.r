@@ -1,5 +1,7 @@
 requirements <- c(
-  'ggplot2'
+  'ggplot2',
+  'gdata',
+  'sitools'
 )
 
 sapply(requirements, function (pkg) {
