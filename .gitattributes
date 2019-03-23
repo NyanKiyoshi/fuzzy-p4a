@@ -4,3 +4,6 @@
 # generated files
 *.iml linguist-generated
 
+# ignore generated benchmark files
+*.data linguist-generated
+
