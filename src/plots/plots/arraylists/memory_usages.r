@@ -1,22 +1,49 @@
 library(ggplot2)
-source('data.r')
+library(scales)
+library(gdata)
+library(sitools)
+
+source('plot_helpers.r')
+source('plots/arraylists/metadata.r')
 
 # Memory usage of additions
-startPlot("ArrayList_Add_MemUsage.jpep", function() {
+startPlot(getLegend('add', 'memoryUsage', '.jpeg', sep = "_"), function() {
   data <- getData(
     interfaceIdent = cInterfaces$ArrayList, 
     operationIdent = cOperations$add
   )
-  
-  plot <- ggplot(
+
+  plot <- makeMemPlot(
     data, 
-    aes(x = data$size, y = data$mem, color = "Add")
-  ) + 
-    xlab("Taille du tableau") + 
-    ylab("Utilisation mémoire (octets)") + 
-    geom_point() + 
-    geom_smooth(method = loess, se = FALSE) + 
-    ggtitle("Utilisation mémoire par ArrayList")
+    'Utilisation mémoire par ArrayList pour la fonction d\'ajout')
+
+  return(plot)
+})
+
+# Memory usage of contains
+startPlot(getLegend('contains', 'memoryUsage', '.jpeg', sep = "_"), function() {
+  data <- getData(
+    interfaceIdent = cInterfaces$ArrayList, 
+    operationIdent = cOperations$contains
+  )
+
+  plot <- makeMemPlot(
+    data, 
+    'Utilisation mémoire par ArrayList pour la fonction \'contains\'')
+
+  return(plot)
+})
+
+# Memory usage of removals
+startPlot(getLegend('remove', 'memoryUsage', '.jpeg', sep = "_"), function() {
+  data <- getData(
+    interfaceIdent = cInterfaces$ArrayList, 
+    operationIdent = cOperations$remove
+  )
+
+  plot <- makeMemPlot(
+    data, 
+    'Utilisation mémoire par ArrayList pour la fonction de suppression')
 
   return(plot)
 })
