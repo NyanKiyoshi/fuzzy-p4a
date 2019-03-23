@@ -14,18 +14,31 @@ i <- 1
 for (graphName in GraphTypes) {
   graphBaseTitle <- GraphTitles[[i]]
   graphFunc <- GraphFuncs[[i]]
-  
+
   for (interfaceType in names(cInterfaces)) {
+    opId <- 1
+    datasets <- list()
+
     for (operationName in names(cOperations)) {
       graphTitle <- makeTitle(graphBaseTitle, interfaceType, operationName)
       graphData <- getData(cInterfaces[interfaceType], cOperations[operationName])
       savePath <- makeSavePath(graphName, interfaceType, operationName)
-      
+
       startPlot(savePath, function() {
-        graphFunc(graphData, graphTitle)
+        graphFunc(graphTitle, list(graphData))
       })
+
+      datasets[[opId]] = graphData
+      opId <- opId + 1
     }
+
+    graphTitle <- makeTitle(graphBaseTitle, 'toutes les interfaces', 'toutes')
+    savePath <- makeSavePath(graphName, 'tous', 'tous')
+
+    startPlot(savePath, function() {
+      graphFunc(graphTitle, datasets)
+    })
   }
-  
+
   i <- i + 1
 }

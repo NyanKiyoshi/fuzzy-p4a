@@ -31,24 +31,56 @@ makeTitle <- function(graphTitle, typeName, operationName) {
   )
 }
 
-makeMemPlot <- function(data, title) {
-  plot <- ggplot(
-    data,
-    aes(x = data$size, y = data$mem)) +
-    geom_point() +
-    geom_smooth(method = loess, se = script.displayConfidenceIntervals) +
-    ggtitle(title) +
-    scale_x_log10('Taille du tableau [cases]', labels=f2si) +
-    scale_y_log10('Utilisation mémoire [octets]', labels=f2si)
+makePlot <- function(basePlot, title, data, color = NULL) {
+  if (is.null(color)) {
+    gAES <- aes(x = data$size, y = data$mem)
+  } else {
+    gAES <- aes(x = data$size, y = data$mem, color = color)
+  }
+
+  basePlot <- basePlot + geom_point(
+    data = data,
+    gAES
+  )
+
+  basePlot <- basePlot + geom_smooth(
+    data = data,
+    method = loess,
+    se = script.displayConfidenceIntervals,
+    gAES
+  )
+
+  return(basePlot)
 }
 
-makeETimePlot <- function(data, title) {
-  plot <- ggplot(
-    data,
-    aes(x = data$size, y = data$etime)) +
-    geom_point() +
-    geom_smooth(method = loess, se = script.displayConfidenceIntervals) +
-    ggtitle(title) +
+makePlotFromData <- function(title, datasets) {
+  plot <- ggplot()
+
+  if(length(datasets) == 1) {
+    plot <- makePlot(plot, title, datasets[[1]])
+  } else {
+    i <- 1
+    for (data in datasets) {
+      plot <- makePlot(plot, title, data, color = names(cOperations)[[i]])
+      i <- i + 1
+    }
+  }
+
+  return(plot + ggtitle(title))
+}
+
+makeMemPlot <- function(title, datasets) {
+  return(
+    makePlotFromData(title, datasets) +
     scale_x_log10('Taille du tableau [cases]', labels=f2si) +
-    scale_y_log10('Temps d\'execution [secondes]', labels=f2si)
+    scale_y_log10('Utilisation mémoire [octets]', labels=f2si)
+  )
+}
+
+makeETimePlot <- function(title, datasets) {
+  return(
+    makePlotFromData(title, datasets) +
+    scale_x_log10('Taille du tableau [cases]', labels=f2si) +
+    scale_y_log10('Temps d\'exécution [secondes]', labels=f2si)
+  )
 }
