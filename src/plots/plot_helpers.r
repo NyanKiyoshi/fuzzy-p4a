@@ -31,11 +31,11 @@ makeTitle <- function(graphTitle, typeName, operationName) {
   )
 }
 
-makePlot <- function(basePlot, title, data, color = NULL) {
+makePlot <- function(basePlot, title, data, y_attr, color = NULL) {
   if (is.null(color)) {
-    gAES <- aes(x = data$size, y = data$mem)
+    gAES <- aes(x = data$size, y = data[[y_attr]])
   } else {
-    gAES <- aes(x = data$size, y = data$mem, color = color)
+    gAES <- aes(x = data$size, y = data[[y_attr]], color = color)
   }
 
   basePlot <- basePlot + geom_point(
@@ -53,17 +53,27 @@ makePlot <- function(basePlot, title, data, color = NULL) {
   return(basePlot)
 }
 
-makePlotFromData <- function(title, datasets) {
+makePlotAxis <- function(plot, data, y_attr, x_label, y_label) {
+  return(plot +
+    scale_x_log10(x_label, labels=f2si) +
+    scale_y_log10(y_label, labels=f2si)
+  )
+}
+
+makePlotFromData <- function(title, datasets, y_attr, x_label, y_label) {
   plot <- ggplot()
 
   if(length(datasets) == 1) {
-    plot <- makePlot(plot, title, datasets[[1]])
+    data <- datasets[[1]]
+    plot <- makePlot(plot, title, data, y_attr)
+    plot <- makePlotAxis(plot, data, y_attr, x_label, y_label)
   } else {
     i <- 1
     for (data in datasets) {
-      plot <- makePlot(plot, title, data, color = names(cOperations)[[i]])
+      plot <- makePlot(plot, title, data, y_attr, color = names(cOperations)[[i]])
       i <- i + 1
     }
+    plot <- makePlotAxis(plot, data, y_attr, x_label, y_label)
   }
 
   return(plot + ggtitle(title))
@@ -71,16 +81,18 @@ makePlotFromData <- function(title, datasets) {
 
 makeMemPlot <- function(title, datasets) {
   return(
-    makePlotFromData(title, datasets) +
-    scale_x_log10('Taille du tableau [cases]', labels=f2si) +
-    scale_y_log10('Utilisation mémoire [octets]', labels=f2si)
+    makePlotFromData(
+      title, datasets, 'mem', 
+      'Taille du tableau [cases]', 'Utilisation mémoire [octets]'
+    )
   )
 }
 
 makeETimePlot <- function(title, datasets) {
   return(
-    makePlotFromData(title, datasets) +
-    scale_x_log10('Taille du tableau [cases]', labels=f2si) +
-    scale_y_log10('Temps d\'exécution [secondes]', labels=f2si)
+    makePlotFromData(
+      title, datasets, 'etime',
+      'Taille du tableau [cases]', 'Temps d\'exécution [secondes]'
+    )
   )
 }
