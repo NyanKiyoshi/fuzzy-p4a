@@ -29,6 +29,7 @@ script:
   - ./run-all.sh
 
 after_success:
+  - ( cd src/plots && Rscript -e 'lintr::lint_package()' )
   - tar -cf $RELEASE_PATH data plots *.md
 
 deploy:
