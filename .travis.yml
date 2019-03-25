@@ -19,20 +19,28 @@ cache:
 env:
   global:
     - RELEASE_PATH=/tmp/release.tar.gz
-    - BUILD_PATH=$(mktemp)
+    - BUILD_PATH=$(mktemp -d)
+  matrix:
+    - ISBUILD=no
+    - ISBUILD=yes
 
 install:
-  - cat /proc/cpuinfo > data/cpuinfo.txt
   - ./src/compile.sh
   - Rscript src/plots/requirements.r
 
-script:
-  - ./run-all.sh
+script: >
+  [[ $ISBUILD == yes ]] && ./run-all.sh ${TEST_COUNT:-50} || :
 
-after_success:
-  - ( cd src/plots && Rscript -e 'lintr::lint_package()' )
-  - mv data plots *.md $BUILD_PATH
-  - tar -cf $RELEASE_PATH $BUILD_PATH/*
+after_success: >
+  [[ $ISBUILD == yes ]] && {
+      cat /proc/cpuinfo > data/cpuinfo.txt
+      ( cd src/plots && Rscript -e 'lintr::lint_package()' )
+
+      .travis/build_index.sh plots data > index.html
+      mv data plots *.md *.html $BUILD_PATH
+
+      tar -cf $RELEASE_PATH $BUILD_PATH
+  } || :
 
 deploy:
   - provider: releases
@@ -43,6 +51,7 @@ deploy:
     draft: false
     on:
       branch: master
+      condition: $ISBUILD = yes
 
   - provider: pages
     local-dir: $BUILD_PATH
@@ -51,5 +60,6 @@ deploy:
     keep-history: true
     on:
       branch: master
+      condition: $ISBUILD = yes
     edge:
       branch: v1.8.47

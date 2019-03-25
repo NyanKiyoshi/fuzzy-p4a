@@ -18,7 +18,9 @@ echo -e "testid\tsize\top\ttype\tetime\tmem"
 
 cd $BUILDDIR
 
-for testid in {1..10}; do
+TEST_COUNT=${1:-20}
+
+for testid in {1..$TEST_COUNT}; do
     size=$(randrange 1 9)00000
 
     for op in {0..2}; do
