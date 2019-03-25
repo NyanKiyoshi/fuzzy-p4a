@@ -1,5 +1,5 @@
-BASEPATH=$(dirname ${0})
-SRCPATH=$(realpath "${BASEPATH}/java")
-BUILDDIR=$(realpath "${BASEPATH}/build")
-DATADIR=$(realpath "${BASEPATH}/../data")
+[[ -z "$BASEPATH" ]] && BASEPATH=$(dirname ${0})
+SRCPATH=$(readlink -f "${BASEPATH}/java")
+BUILDDIR=$(readlink -f "${BASEPATH}/build")
+DATADIR=$(readlink -f "${BASEPATH}/../data")
 

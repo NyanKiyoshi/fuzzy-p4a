@@ -1,0 +1,43 @@
+language: R
+sudo: false
+os: linux
+dist: xenial
+
+addons:
+  apt:
+    packages:
+      - time
+
+jdk:
+  - openjdk11
+
+cache:
+  directories:
+    - /home/travis/R/
+    - /usr/local/lib/R/site-library
+
+env:
+  global:
+    - RELEASE_PATH=/tmp/release.tar.gz
+
+install:
+  - cat /proc/cpuinfo > data/cpuinfo.txt
+  - ./src/compile.sh
+  - Rscript src/plots/requirements.r
+
+script:
+  - ./run-all.sh
+
+after_success:
+  - ( cd src/plots && Rscript -e 'lintr::lint_package()' )
+  - tar -cf $RELEASE_PATH data plots *.md
+
+deploy:
+    - provider: releases
+      api_key: $GITHUB_TOKEN
+      file: ${RELEASE_PATH}
+      file_glob: true
+      skip_cleanup: true
+      draft: false
+      on:
+        branch: master
