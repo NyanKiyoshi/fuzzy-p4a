@@ -4,6 +4,8 @@ BASEPATH=./src/
 cd "$(dirname ${0})"
 source ${BASEPATH}/variables.sh
 
-${BASEPATH}/benchmark.sh $@ > "${DATADIR}/benchmark.data"
+BENCHFILE="${DATADIR}/benchmark.data"
+
+${BASEPATH}/benchmark.sh $@ > $BENCHFILE
 
 ( cd ${BASEPATH}/plots/ && Rscript main.r )

@@ -20,7 +20,7 @@ cd $BUILDDIR
 
 TEST_COUNT=${1:-20}
 
-for testid in $(seq $TEST_COUNT)}; do
+for testid in $(seq $TEST_COUNT); do
     size=$(randrange 1 9)00000
 
     for op in {0..2}; do

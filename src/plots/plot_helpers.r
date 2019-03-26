@@ -56,7 +56,7 @@ makePlot <- function(basePlot, title, data, y_attr, color = NULL) {
 makePlotAxis <- function(plot, data, y_attr, x_label, y_label) {
   return(plot +
     scale_x_log10(x_label, labels=f2si) +
-    scale_y_log10(y_label, labels=f2si)
+    scale_y_continuous(y_label)
   )
 }
 

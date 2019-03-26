@@ -32,8 +32,8 @@ for (graphName in GraphTypes) {
       opId <- opId + 1
     }
 
-    graphTitle <- makeTitle(graphBaseTitle, 'toutes les interfaces', 'toutes')
-    savePath <- makeSavePath(graphName, 'tous', 'tous')
+    graphTitle <- makeTitle(graphBaseTitle, interfaceType, 'toutes')
+    savePath <- makeSavePath(graphName, interfaceType, 'tous')
 
     startPlot(savePath, function() {
       graphFunc(graphTitle, datasets)
