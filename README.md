@@ -1,14 +1,30 @@
-
 # P4a : Analyse de performances de différentes structures
 
 [Grille d'évaluation P4a](https://docs.google.com/spreadsheets/d/1Ki0FJpb8fR_yDCS4hYwoEPKs_Ap4UxTZ5MOpkdj0GVU/edit#gid=0)
 
 ## Problème
 
-On veut tester les différences de performance entre les différents types de
-l'interface ICollection en Java.
+Nous recherchons la structure la plus performante point de vue de temps
+d'exécution et d'utilisation mémoire pour répondre à nos besoins (langage Java).
 
-Description de tous les paramètres exploratoires du problème
+On souhaite avoir une collection qui peut contenir un nombre
+aléatoire de valeurs où l'on peut ensuite toujours, aussi efficacement que
+possible, sur une valeur aléatoire, soit :
+- L'ajouter ;
+- Soit rechercher son exitance ;
+- Soit la supprimer de la structure.
+
+Pour cela, nous souhaitons donc tester les structures suivantes de l'interface
+`ICollection` :
+- `ArrayList` ;
+- `LinkedList` ;
+- Et `HashSet`.
+
+Afin d'observer les différences de temps d'exécution et d'utilisation
+mémoire, nous allons faire jouer les paramètres suivants afin
+de pouvoir choisir laquelle répond le mieux à notre problème :
+- Le nombre de test par structure et opération ;
+- Et le nombre d'éléments à être traités par chaque opération.
 
 ## Dispositif expérimental
 
@@ -16,14 +32,26 @@ Description de tous les paramètres exploratoires du problème
 
 [code source de l'application](chemin)
 ```
-Description de l'application et des arguments
+- Un programme Java qui prend : STRUCTURE OPERATION SIZE
+
+  Structure:
+  	0 => ArrayList
+  	1 => LinkedList
+  	2 => HashSet
+
+  Operation:
+  	0 => Add
+  	1 => Contains
+  	2 => Remove
+
+- Un programme Bash qui, de manière imbriquée, teste les différentes structures
+  en leur passant une taille aléatoire.
 ```
 
 ### Environnement de test
 
-Description de la plateforme de test
+Extrait de `/proc/cpuinfo` :
 ```
-Extrait pertinent de /proc/cpuinfo
 ```
 
 ### Description de la démarche systématique
