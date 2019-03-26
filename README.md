@@ -5,7 +5,8 @@
 
 ## Problème
 
-Description du Problème.
+On veut tester les différences de performance entre les différents types de
+l'interface ICollection en Java.
 
 Description de tous les paramètres exploratoires du problème
 

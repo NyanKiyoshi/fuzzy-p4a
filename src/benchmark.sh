@@ -20,18 +20,18 @@ cd $BUILDDIR
 
 TEST_COUNT=${1:-20}
 
-for testid in $(seq $TEST_COUNT); do
-    size=$(randrange 1 9)00000
-
-    for op in {0..2}; do
-        for interface in {0..2}; do
-            (
-                res=`($time java Main $interface $op $size > /dev/null) 2>&1`
-                echo -e "$testid\t$size\t$op\t$interface\t$res"
-            ) &
+for size in $(seq 100000 50000 500000); do
+    for testid in {1..3}; do
+        for op in {0..2}; do
+            for interface in {0..2}; do
+                (
+                    res=`($time java Main $interface $op $size > /dev/null) 2>&1`
+                    echo -e "$testid\t$size\t$op\t$interface\t$res"
+                ) &
+            done
         done
-    done
 
-    wait
+        wait
+    done
 done
 
