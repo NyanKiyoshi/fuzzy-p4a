@@ -10,15 +10,16 @@ public class Main {
 
     public static void showUsage() {
         System.err.println(
-                "Usage: INTERFACE OPERATION SIZE\n\n" +
-                "Interface: \n" +
-                "\t0 => ArrayList \n" +
-                "\t1 => LinkedList \n" +
-                "\t2 => HashSet \n\n" +
-                "Operation:\n" +
-                "\t0 => Add\n" +
-                "\t1 => Contains\n" +
-                "\t2 => Remove"
+                "Usage: STRUCTURE OPERATION COUNT\n\n"
+                + "Structure:\n"
+                + "    0 => ArrayList\n"
+                + "    1 => LinkedList\n"
+                + "    2 => HashSet\n\n"
+                + "Operation:\n"
+                + "    0 => Add\n"
+                + "    1 => Contains\n"
+                + "    2 => Remove\n\n"
+                + "Count: the number of time to run the operation.\n"
         );
         exit(1);
     }
