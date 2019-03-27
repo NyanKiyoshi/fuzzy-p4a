@@ -9,3 +9,4 @@ BENCHFILE="${DATADIR}/benchmark.data"
 ${BASEPATH}/benchmark.sh $@ > $BENCHFILE
 
 ( cd ${BASEPATH}/plots/ && Rscript main.r )
+
