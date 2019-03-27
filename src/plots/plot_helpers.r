@@ -38,22 +38,22 @@ makePlot <- function(basePlot, title, data, y_attr, color = NULL) {
     gAES <- aes(x = data$size, y = data[[y_attr]], color = color)
   }
 
-  basePlot <- basePlot + geom_point(
-    data = data,
-    gAES
-  )
-
-  basePlot <- basePlot + geom_smooth(
-    data = data,
-    method = loess,
-    se = script.displayConfidenceIntervals,
-    gAES
+  basePlot <- basePlot +
+    geom_point(
+      data = data,
+      gAES
+    ) +
+    geom_smooth(
+      data = data,
+      method = loess,
+      se = script.displayConfidenceIntervals,
+      gAES
   )
 
   return(basePlot)
 }
 
-makePlotAxis <- function(plot, data, y_attr, x_label, y_label) {
+makePlotAxis <- function(plot, data, x_label, y_label) {
   return(plot +
     scale_x_log10(x_label, labels=f2si) +
     scale_y_continuous(y_label)
@@ -65,24 +65,49 @@ makePlotFromData <- function(title, datasets, y_attr, x_label, y_label) {
 
   if(length(datasets) == 1) {
     data <- datasets[[1]]
+
+    yAxis <- data[[y_attr]]
+    yMin <- min(yAxis)
+    yMax <- max(yAxis)
+
+    if (yMax - yMin < 2) {
+      yMin <- yMin - 1;
+      yMax <- yMax + 1;
+    }
+
     plot <- makePlot(plot, title, data, y_attr)
-    plot <- makePlotAxis(plot, data, y_attr, x_label, y_label)
+    plot <- makePlotAxis(plot, data, x_label, y_label)
   } else {
     i <- 1
+    data <- datasets[[1]]
+    yMin <- NULL
+    yMax <- NULL
+
     for (data in datasets) {
+
+      yAxis <- data[[y_attr]]
+      yMin <- min(yMin, min(yAxis))
+      yMax <- max(yMax, max(yAxis))
+
       plot <- makePlot(plot, title, data, y_attr, color = names(cOperations)[[i]])
       i <- i + 1
     }
-    plot <- makePlotAxis(plot, data, y_attr, x_label, y_label)
+
+    if (yMax - yMin < 2) {
+      yMin <- yMin - 1;
+      yMax <- yMax + 1;
+    }
+
+    plot <- makePlotAxis(plot, data, x_label, y_label)
   }
 
-  return(plot + ggtitle(title))
+  return(plot + ggtitle(title) + coord_cartesian(ylim = c(yMin, yMax)))
 }
 
 makeMemPlot <- function(title, datasets) {
   return(
     makePlotFromData(
-      title, datasets, 'mem', 
+      title, datasets, 'mem',
       'Taille du tableau [cases]', 'Utilisation mémoire [octets]'
     )
   )
