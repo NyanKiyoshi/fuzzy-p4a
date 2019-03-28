@@ -106,14 +106,51 @@ Quant à la `LinkedList`, elle crée des maillons à chaque fois qu'on souhaite 
 
 ### Hypothèse
 
-Expression précise et succincte d'une hypothèse.
+Dans les tests précédents, nous remarquons que les performances de la structure
+`HashSet` sont vraiment intéressantes et rapides. Bien que cela utilise un peu
+plus de mémoire, ce qui dans notre cas est relativement omittable avec une telle
+rapidité ; comme montré ci-dessous, on passe de 10 secondes d'exécution
+(meilleur des cas) à 200ms pour les opérations `contains` et `remove` 
+dans le cas d'une taille égale à `500.000`. Ce qui est une énorme différence.
+
+![Chargement de la comparaison...](plots/Main_ExecTime_comparaison.jpg)
+
+Mais dans le meilleur des cas, sur une taille de `500.000`, on passe d'une
+consommation mémoire d'environ `35Ko` à environ `76Ko`. Ce qui fait une
+différence d'environ `41Ko`. Ce qui reste relativement négligeable dans notre
+cas.
+
+Nous soutaitons donc faire une hypothèse sur le triage des données. Si nous
+insérons, recherchons et supprimons des données ordonnées, serons-nous capables
+d'effectuer ces actions beaucoup plus rapidement ?
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Expression précise et succincte du protocole.
+Après adaptation du code java pour avoir des données ordonnées, nous avons la
+différence suivante entre le code original et le nouveau, avec `i`, une suite de
+valeur relative à la taille (i = i + 1) :
 
+```diff
+<             c.add(random.nextInt());
+>             c.add(i);
+---
+<             c.contains(random.nextInt());
+>             c.contains(i);
+---
+<             c.remove(random.nextInt());
+>             c.remove(i);
+---
 ```
-Suite des commandes, ou script, à exécuter pour produire les données.
+
+Nous avons simplement adapter nos code sources pour le nouveau cas. Il suffit de
+lancer notre nouveau script bash comme ci-dessous, et il fera la liste d'actions
+citées.
+```
+./run-hypothese.sh
+  -> javac Hypothese.java : compile le code de l'hypothèse
+  -> ./src/benchmark.sh -t Hypothese : lance la batterie de tests contre l'hypothèse compilée
+  -> Rscript ./src/plots/main.r Hypothese : génère les graphiques à partir des données
+        avec des fichiers préfixés par `Hypothese_`
 ```
 
 ### Résultats expérimentaux
