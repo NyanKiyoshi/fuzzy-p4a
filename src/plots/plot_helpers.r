@@ -13,10 +13,10 @@ startPlot <- function(filename, callback) {
   dev.off()
 }
 
-makeSavePath <- function(graphName, typeName, operationName, ext = '.jpg') {
+makeSavePath <- function(testName, graphName, typeName, operationName, ext = '.jpg') {
   return (
     paste(
-      graphName, typeName, operationName, ext,
+      testName, graphName, typeName, operationName, ext,
       sep = '_'
     )
   )

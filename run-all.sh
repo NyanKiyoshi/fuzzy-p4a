@@ -7,5 +7,5 @@ BASEPATH="./src"
 BENCHFILE="./data/benchmark.data"
 
 ${BASEPATH}/benchmark.sh $@ > $BENCHFILE && \
-    ( cd ${BASEPATH}/plots/ && Rscript main.r )
+    ( cd ${BASEPATH}/plots/ && Rscript main.r Main)
 

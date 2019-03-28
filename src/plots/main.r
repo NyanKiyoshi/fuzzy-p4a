@@ -6,6 +6,13 @@ library(sitools)
 source('plot_helpers.r')
 source('data.r')
 
+vargs = commandArgs(trailingOnly = TRUE)
+if (length(vargs) == 0) {
+  stop("At least one argument must be supplied: test name.", call. = FALSE)
+}
+
+testName = vargs[1]
+
 GraphTypes  = c('MemoryUsage', 'ExecTime')
 GraphTitles = c('Utilisation mémoire', 'Temps d\'exécution')
 GraphFuncs  = c(makeMemPlot, makeETimePlot)
@@ -24,7 +31,7 @@ for (graphName in GraphTypes) {
     for (operationName in names(cOperations)) {
       graphTitle <- makeTitle(graphBaseTitle, interfaceType, operationName)
       graphData <- getData(cInterfaces[interfaceType], cOperations[operationName])
-      savePath <- makeSavePath(graphName, interfaceType, operationName)
+      savePath <- makeSavePath(testName, graphName, interfaceType, operationName)
 
       startPlot(savePath, function() {
         graphFunc(graphTitle, list(graphData))
@@ -42,7 +49,7 @@ for (graphName in GraphTypes) {
     }
 
     graphTitle <- makeTitle(graphBaseTitle, interfaceType, 'toutes')
-    savePath <- makeSavePath(graphName, interfaceType, 'tous')
+    savePath <- makeSavePath(testName, graphName, interfaceType, 'tous')
 
     startPlot(savePath, function() {
       graphFunc(graphTitle, datasets)
@@ -51,7 +58,7 @@ for (graphName in GraphTypes) {
   
   for (operationSetsName in names(perOperationSets)) {
     graphTitle <- makeTitle(graphBaseTitle, 'toutes', operationSetsName)
-    savePath <- makeSavePath(graphName, 'toutes', operationSetsName)
+    savePath <- makeSavePath(testName, graphName, 'toutes', operationSetsName)
     
     startPlot(savePath, function() {
       graphFunc(graphTitle, perOperationSets[[operationSetsName]], names(cInterfaces))
