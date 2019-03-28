@@ -1,11 +1,16 @@
-# P4a : Analyse de performances de différentes structures
+<div align='center'>
+  <h1>
+  P4a : Analyse de performances de différentes structures
+  (<a href='https://docs.google.com/spreadsheets/d/1Ki0FJpb8fR_yDCS4hYwoEPKs_Ap4UxTZ5MOpkdj0GVU/edit#gid=0'>grille</a>)
+  </h1>
+  <p>KOCAK Mikail, KOENIG Clément</p>
+</div>
 
-[Grille d'évaluation P4a](https://docs.google.com/spreadsheets/d/1Ki0FJpb8fR_yDCS4hYwoEPKs_Ap4UxTZ5MOpkdj0GVU/edit#gid=0)
 
 ## Problème
 
 Lors du développement d'une application en Java (ou dans un autre langage), nous utilisons très régulièrement des `Collections` pour stocker des données. Cependant, chaque implémentation de cette interface possède des avantages et des inconvénients, tout dépend de l'utilisation que l'on va en faire.
-Notre but est de comparer le temps d'éxécution et d'utilisation mémoire de différentes collections afin de voir laquelle est la plus performante.
+Notre but est de comparer le temps d'exécution et d'utilisation mémoire de différentes collections afin de voir laquelle est la plus performante.
 
 Pour ce faire, nous allons tester 3 opérations différentes :
 - L'*insertion* d'un élément
@@ -27,7 +32,6 @@ de pouvoir choisir laquelle répond le mieux à notre problème :
 ### Application
 
 1. [Code source de l'application Java](src/java/Main.java)
-
 ```
 java Main <interface> <operation> <size>
 ```
@@ -42,13 +46,26 @@ operation:
     1 => Contains
     2 => Remove
  ```
- 
-2. [Code source du script Bash](src/benchmark.sh)
+2. [Code source du script bash](src/benchmark.sh)
+```
+Usage: [option=value]...
+
+-c=TEST_COUNT, --count=TEST_COUNT: number of time to run each test case. To note
+    default is 3.
+
+-s=SIZE_SEQUENCES, --sizes=SIZE_SEQUENCES: the size sequences to run the program
+    against, the sequences are to be separated with a space, e.g. '10 100 1000'.
+
+-t=TEST_CLS_NAME, --test=TEST_CLS_NAME: the java class name to run test against,
+    the available names are: Main, and Hypothese. The default value is set Main.
+
+Note: the capitalized value names can be passed as environment variables.
+```
 3. [Code source des scripts R](src/plots)
 
 ### Environnement de test
 
-Nous avons effectués nos tests sur notre machine personnelle, voici le résumé des informations tirées de [`/proc/cpuinfo`](data/cpuinfo.txt) :
+Nous avons effectué nos tests sur notre machine personnelle, voici le résumé des informations tirées de [`/proc/cpuinfo`](data/cpuinfo.txt) :
 ```
 model name	: Intel(R) Core(TM) i3-4100M CPU @ 2.50GHz
 cpu MHz		: 798.197
@@ -87,9 +104,9 @@ cpu cores	: 2
 
 ### Analyse des résultats préalables
 
-En regardant les graphiques générés, nous pouvons de suite remarquer que le temps d'éxécution et la consommation mémoire sont totalements différents selon la structure.
+En regardant les graphiques générés, nous pouvons de suite remarquer que le temps d'exécution et la consommation mémoire sont totalement différents selon la structure.
 
-- Au niveau du temps d'éxécution, le `HashSet` est largement plus rapide que les deux autres structures pour l'accès et la suppression, cependant il est moins rapide pour l'insertion. <br/>
+- Au niveau du temps d'exécution, le `HashSet` est largement plus rapide que les deux autres structures pour l'accès et la suppression, cependant il est moins rapide pour l'insertion. <br/>
 De plus, l'`ArrayList` est légèrement plus performante que la `LinkedList` sur les trois opérations.
 
 - Au niveau de la consommation mémoire, c'est l'inverse puisque c'est le `HashSet` qui est le plus gourmand, peu importe l'opération réalisée.<br/>
@@ -97,7 +114,7 @@ Pour l'accès et la suppression, la `LinkedList` est un peu plus rapide que l'`A
 
 ### Discussion des résultats préalables
 
-Le `HashSet` est beaucoup plus rapide que les deux autres structures étudiées pour l'accès et la suppression car les valeurs qu'il contient son triées. Cependant, cela implique qu'il met plus de temps à insérer un élément car il doit réaliser un certain nombre de comparaisons afin de trouver à quel position l'élément doit être inséré. <br/>
+Le `HashSet` est beaucoup plus rapide que les deux autres structures étudiées pour l'accès et la suppression car les valeurs qu'il contient sont triées. Cependant, cela implique qu'il met plus de temps à insérer un élément car il doit réaliser un certain nombre de comparaisons afin de trouver à quelle position l'élément doit être inséré. <br/>
 Cela va également augmenter drastiquement sa consommation mémoire, ce qui est probablement dû à la classification des données.
 
 Quant à la `LinkedList`, elle crée des maillons à chaque fois qu'on souhaite insérer un nouvel élément, c'est donc pour cela qu'elle devient rapidement gourmande par rapport aux autres structures notamment lorsqu'elle atteint une taille assez conséquente.
@@ -106,17 +123,21 @@ Quant à la `LinkedList`, elle crée des maillons à chaque fois qu'on souhaite 
 
 ### Hypothèse
 
-Dans les tests précédents, nous avons remarqué que les performances de la structure `HashSet` sont vraiment intéressantes et rapides. Bien que cela consomme un peu plus de mémoire que les autres structures, c'est négligeable car le temps d'éxécution reste très rapide : comme montré ci-dessous, on passe de 10 secondes d'exécution (meilleur des cas) à 200ms pour les opérations `contains` et `remove` pour une taille de **500.000** éléments.
+Dans les tests précédents, nous avons remarqué que les performances de la structure `HashSet` sont vraiment intéressantes et rapides. Bien que cela consomme un peu plus de mémoire que les autres structures, c'est négligeable car le temps d'exécution reste très rapide : comme montré ci-dessous, on passe de 10 secondes d'exécution (meilleur des cas) à 200ms pour les opérations `contains` et `remove` pour une taille de **500.000** éléments.
 
 ![Chargement de la comparaison...](plots/Main_ExecTime_comparaison.jpg)
 
 Mais dans le meilleur des cas, avec une taille de **500.000** éléments, on passe d'une consommation mémoire d'environ `35Ko` à environ `76Ko`. Cela correspond à une différence d'environ `41Ko`, ce qui reste relativement négligeable dans notre cas.
 
-Nous soutaitons donc faire une hypothèse sur le triage des données. Si nous insérons, recherchons et supprimons des données ordonnées, serons-nous capables d'effectuer ces opérations beaucoup plus rapidement ?
+Nous souhaitons donc faire une hypothèse sur le triage des données. Si nous insérons, recherchons et supprimons des données ordonnées, serons-nous capables d'effectuer ces opérations beaucoup plus rapidement ?
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Après adaptation du code java pour avoir des données ordonnées, nous avons la différence suivante entre le code original et le nouveau, avec `i`, une suite de valeur relative à la taille `(i = i + 1)` :
+1. [Code source de l'application Java](src/java/Hypothese.java)
+2. [Code source du script bash](run-hypothese.sh)
+3. [Code source des scripts R](src/plots)
+
+Après adaptation du code java pour avoir des données ordonnées, nous avons la différence suivante entre le code original et le nouveau, avec `i`, une suite de valeurs relatives à la taille `(i = i + 1)` :
 
 ```diff
 <             c.add(random.nextInt());
@@ -130,7 +151,7 @@ Après adaptation du code java pour avoir des données ordonnées, nous avons la
 ---
 ```
 
-Nous avons simplement adapté nos code sources pour le nouveau cas. Il suffit de lancer notre nouveau script bash comme ci-dessous, et il fera la liste d'actions suivantes.
+Nous avons simplement adapté nos codes sources pour le nouveau cas. Il suffit de lancer notre nouveau script bash comme ci-dessous, et il fera la liste d'actions ci-dessous.
 ```
 ./run-hypothese.sh
   -> javac Hypothese.java : compile le code de l'hypothèse
@@ -174,15 +195,15 @@ fait qu'il regarde de suite dans la case `i` lors de la suppression, ce qui
 pourrait justifier une telle rapidité.
 
 Mais dans le cas du `contains`, il semblerait qu'il continue à parcourir les
-éléments de un à un jusqu'à ce qu'il trouve le `i` recherché.
+éléments d'un à un jusqu'à ce qu'il trouve le `i` recherché.
 Mais le `contains` étant deux fois plus rapide dans le cas d'une suite
-`(i = i + 1)`, on pourrais assumer que cela est dû au cache du processeur qui
-peut parcourir rapidement une liste ordonné car il serait capable de charger un
+`(i = i + 1)`, on pourrait assumer que cela est dû au cache du processeur qui
+peut parcourir rapidement une liste ordonnée car il serait capable de charger un
 ensemble de valeurs rapidement avec une forte probabilité que le nombre
 recherché soit dans le cache.
 
 Quant à l'utilisation mémoire de `ArrayList`, il est difficile de s'exprimer.
-Cela pourrait être dû au fait que les valeurs aléatoire sont souvents codées sur
+Cela pourrait être dû au fait que les valeurs aléatoires sont souvent codées sur
 plusieurs octets. L'implémentation Java des entiers fait probablement que cela
 prenne moins de place en mémoire lorsqu'on manipule des entiers de 2 à 16
 octets. Ce qui pourrait partiellement justifier la différence, mais pas un total
@@ -190,28 +211,28 @@ de `7Ko`, il se passe définitivement quelque chose dans l'implémentation Java
 qui diminue la consommation mémoire dans notre cas.
 
 Dans le cas du `HashSet` nous assumons qu'il génère moins de relations entre les
-valeurs, moins de méta-données qui classifient les valeurs car elles sont
+valeurs, moins de métadonnées qui classifient les valeurs car elles sont
 relativement proches les unes des autres, le classement doit donc se voir plus
 efficace sur une suite avec un pas non-exponentiel.
 
 La recherche et la suppression, ne sont **pas du tout** affectées,
 car la méthode de recherche doit être exactement la même, la classification doit
-donc avoir toujours la même effacitée qu'avant, tout comme pour le stockage qui
+donc avoir toujours la même efficacité qu'avant, tout comme pour le stockage qui
 est lui aussi n'est pas affecté.
 
 ## Conclusion et travaux futurs
-La rapidité impressionnante de la suppresion dans l''`ArrayList` qui passe d'un
+La rapidité impressionnante de la suppression dans l''`ArrayList` qui passe d'un
 temps d'exécution `O(n)` à du `O(1)` dans le cadre d'une suite `(i = i + 1)`
 pourrait être fausse dès que le pas est différent de `1`. On pourrait donc
 expérimenter un autre pas (ex. : 1000 ou 10). Une influence sur ce paramètre
-pourrait révéller des choses intéressante.
+pourrait révéler des choses intéressante.
 
-De plus, nous pourrions expérimenter d'autres structure conçues pour des données
+De plus, nous pourrions expérimenter d'autres structures conçues pour des données
 ordonnées qui pourraient se révéler plus efficace que `HashSet` qui est
-spécialisé dans la recherche d'unicité et non pas d'ordonnement.
+spécialisé dans la recherche d'unicité et non pas d'ordonnément.
 
 Et en addition à tout cela, on pourrait essayer de partir de données avec un
-espace réservé dès la création de nos structure en fonction de la taille passée
+espace réservé dès la création de nos structures en fonction de la taille passée
 et attendue ; ce qui pourrait améliorer les temps et permettre d'avoir plus de
 valeurs en cache, car il se pourrait que notre structure ne soit pas capable
 d'avoir toutes les valeurs à la suite dans la mémoire en fonction de l'espace
