@@ -4,7 +4,7 @@
 
 ## Problème
 
-Lors du développement d'une application en Java (ou dans un autre langage), nous utilisons très régulièrement des `Collections` pour stocker des données. Cependant chaque implémentation de cette interface possède des avantages et des inconvénients, tout dépend de l'utilisation que l'on va en faire.
+Lors du développement d'une application en Java (ou dans un autre langage), nous utilisons très régulièrement des `Collections` pour stocker des données. Cependant, chaque implémentation de cette interface possède des avantages et des inconvénients, tout dépend de l'utilisation que l'on va en faire.
 Notre but est de comparer le temps d'éxécution et d'utilisation mémoire de différentes collections afin de voir laquelle est la plus performante.
 
 Pour ce faire, nous allons tester 3 opérations différentes :
@@ -38,9 +38,9 @@ interface:
     2 => HashSet
 
 operation:
-  	0 => Add
-  	1 => Contains
-  	2 => Remove
+    0 => Add
+    1 => Contains
+    2 => Remove
  ```
 
 ### Environnement de test
