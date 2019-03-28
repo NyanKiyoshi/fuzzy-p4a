@@ -60,7 +60,9 @@ makePlotAxis <- function(plot, data, x_label, y_label) {
   )
 }
 
-makePlotFromData <- function(title, datasets, y_attr, x_label, y_label) {
+makePlotFromData <- function(
+    title, datasets, y_attr, x_label, y_label, colors) {
+  
   plot <- ggplot()
 
   if(length(datasets) == 1) {
@@ -89,7 +91,7 @@ makePlotFromData <- function(title, datasets, y_attr, x_label, y_label) {
       yMin <- min(yMin, min(yAxis))
       yMax <- max(yMax, max(yAxis))
 
-      plot <- makePlot(plot, title, data, y_attr, color = names(cOperations)[[i]])
+      plot <- makePlot(plot, title, data, y_attr, color = colors[[i]])
       i <- i + 1
     }
 
@@ -104,20 +106,22 @@ makePlotFromData <- function(title, datasets, y_attr, x_label, y_label) {
   return(plot + ggtitle(title) + coord_cartesian(ylim = c(yMin, yMax)))
 }
 
-makeMemPlot <- function(title, datasets) {
+makeMemPlot <- function(title, datasets, colors = names(cOperations)) {
   return(
     makePlotFromData(
       title, datasets, 'mem',
-      'Taille du tableau [cases]', 'Utilisation mémoire [octets]'
+      'Taille du tableau [cases]', 'Utilisation mémoire [octets]',
+      colors
     )
   )
 }
 
-makeETimePlot <- function(title, datasets) {
+makeETimePlot <- function(title, datasets, colors = names(cOperations)) {
   return(
     makePlotFromData(
       title, datasets, 'etime',
-      'Taille du tableau [cases]', 'Temps d\'exécution [secondes]'
+      'Taille du tableau [cases]', 'Temps d\'exécution [secondes]',
+      colors
     )
   )
 }

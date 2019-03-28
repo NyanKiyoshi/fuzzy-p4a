@@ -14,6 +14,8 @@ i <- 1
 for (graphName in GraphTypes) {
   graphBaseTitle <- GraphTitles[[i]]
   graphFunc <- GraphFuncs[[i]]
+  
+  perOperationSets <- list()
 
   for (interfaceType in names(cInterfaces)) {
     opId <- 1
@@ -30,6 +32,13 @@ for (graphName in GraphTypes) {
 
       datasets[[opId]] = graphData
       opId <- opId + 1
+      
+      operationSets <- perOperationSets[[operationName]]
+      if (is.null(operationSets)) {
+        perOperationSets[[operationName]] <- list()
+      }
+      
+      perOperationSets[[operationName]][[length(operationSets) + 1]] <- graphData
     }
 
     graphTitle <- makeTitle(graphBaseTitle, interfaceType, 'toutes')
@@ -37,6 +46,15 @@ for (graphName in GraphTypes) {
 
     startPlot(savePath, function() {
       graphFunc(graphTitle, datasets)
+    })
+  }
+  
+  for (operationSetsName in names(perOperationSets)) {
+    graphTitle <- makeTitle(graphBaseTitle, 'toutes', operationSetsName)
+    savePath <- makeSavePath(graphName, 'toutes', operationSetsName)
+    
+    startPlot(savePath, function() {
+      graphFunc(graphTitle, perOperationSets[[operationSetsName]], names(cInterfaces))
     })
   }
 
