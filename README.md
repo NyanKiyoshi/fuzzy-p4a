@@ -106,29 +106,17 @@ Quant à la `LinkedList`, elle crée des maillons à chaque fois qu'on souhaite 
 
 ### Hypothèse
 
-Dans les tests précédents, nous remarquons que les performances de la structure
-`HashSet` sont vraiment intéressantes et rapides. Bien que cela utilise un peu
-plus de mémoire, ce qui dans notre cas est relativement omittable avec une telle
-rapidité ; comme montré ci-dessous, on passe de 10 secondes d'exécution
-(meilleur des cas) à 200ms pour les opérations `contains` et `remove` 
-dans le cas d'une taille égale à `500.000`. Ce qui est une énorme différence.
+Dans les tests précédents, nous avons remarqué que les performances de la structure `HashSet` sont vraiment intéressantes et rapides. Bien que cela consomme un peu plus de mémoire que les autres structures, c'est négligeable car le temps d'éxécution reste très rapide : comme montré ci-dessous, on passe de 10 secondes d'exécution (meilleur des cas) à 200ms pour les opérations `contains` et `remove` pour une taille de **500.000**.
 
 ![Chargement de la comparaison...](plots/Main_ExecTime_comparaison.jpg)
 
-Mais dans le meilleur des cas, sur une taille de `500.000`, on passe d'une
-consommation mémoire d'environ `35Ko` à environ `76Ko`. Ce qui fait une
-différence d'environ `41Ko`. Ce qui reste relativement négligeable dans notre
-cas.
+Mais dans le meilleur des cas, avec une taille de **500.000**, on passe d'une consommation mémoire d'environ `35Ko` à environ `76Ko`. Cela correspond à une différence d'environ `41Ko`, ce qui reste relativement négligeable dans notre cas.
 
-Nous soutaitons donc faire une hypothèse sur le triage des données. Si nous
-insérons, recherchons et supprimons des données ordonnées, serons-nous capables
-d'effectuer ces actions beaucoup plus rapidement ?
+Nous soutaitons donc faire une hypothèse sur le triage des données. Si nous insérons, recherchons et supprimons des données ordonnées, serons-nous capables d'effectuer ces opérations beaucoup plus rapidement ?
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Après adaptation du code java pour avoir des données ordonnées, nous avons la
-différence suivante entre le code original et le nouveau, avec `i`, une suite de
-valeur relative à la taille (i = i + 1) :
+Après adaptation du code java pour avoir des données ordonnées, nous avons la différence suivante entre le code original et le nouveau, avec `i`, une suite de valeur relative à la taille (i = i + 1) :
 
 ```diff
 <             c.add(random.nextInt());
@@ -142,9 +130,7 @@ valeur relative à la taille (i = i + 1) :
 ---
 ```
 
-Nous avons simplement adapter nos code sources pour le nouveau cas. Il suffit de
-lancer notre nouveau script bash comme ci-dessous, et il fera la liste d'actions
-citées.
+Nous avons simplement adapté nos code sources pour le nouveau cas. Il suffit de lancer notre nouveau script bash comme ci-dessous, et il fera la liste d'actions suivantes.
 ```
 ./run-hypothese.sh
   -> javac Hypothese.java : compile le code de l'hypothèse
