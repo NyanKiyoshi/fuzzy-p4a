@@ -48,8 +48,12 @@ operation:
 
 ### Environnement de test
 
-Extrait de `/proc/cpuinfo` :
+Nous avons effectués nos tests sur notre machine personnelle, voici le résumé des informations tirées de [`/proc/cpuinfo`](data/cpuinfo.txt) :
 ```
+model name	: Intel(R) Core(TM) i3-4100M CPU @ 2.50GHz
+cpu MHz		: 798.197
+cache size	: 3072 KB
+cpu cores	: 2
 ```
 
 ### Description de la démarche systématique
