@@ -106,17 +106,17 @@ Quant à la `LinkedList`, elle crée des maillons à chaque fois qu'on souhaite 
 
 ### Hypothèse
 
-Dans les tests précédents, nous avons remarqué que les performances de la structure `HashSet` sont vraiment intéressantes et rapides. Bien que cela consomme un peu plus de mémoire que les autres structures, c'est négligeable car le temps d'éxécution reste très rapide : comme montré ci-dessous, on passe de 10 secondes d'exécution (meilleur des cas) à 200ms pour les opérations `contains` et `remove` pour une taille de **500.000**.
+Dans les tests précédents, nous avons remarqué que les performances de la structure `HashSet` sont vraiment intéressantes et rapides. Bien que cela consomme un peu plus de mémoire que les autres structures, c'est négligeable car le temps d'éxécution reste très rapide : comme montré ci-dessous, on passe de 10 secondes d'exécution (meilleur des cas) à 200ms pour les opérations `contains` et `remove` pour une taille de **500.000** éléments.
 
 ![Chargement de la comparaison...](plots/Main_ExecTime_comparaison.jpg)
 
-Mais dans le meilleur des cas, avec une taille de **500.000**, on passe d'une consommation mémoire d'environ `35Ko` à environ `76Ko`. Cela correspond à une différence d'environ `41Ko`, ce qui reste relativement négligeable dans notre cas.
+Mais dans le meilleur des cas, avec une taille de **500.000** éléments, on passe d'une consommation mémoire d'environ `35Ko` à environ `76Ko`. Cela correspond à une différence d'environ `41Ko`, ce qui reste relativement négligeable dans notre cas.
 
 Nous soutaitons donc faire une hypothèse sur le triage des données. Si nous insérons, recherchons et supprimons des données ordonnées, serons-nous capables d'effectuer ces opérations beaucoup plus rapidement ?
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Après adaptation du code java pour avoir des données ordonnées, nous avons la différence suivante entre le code original et le nouveau, avec `i`, une suite de valeur relative à la taille (i = i + 1) :
+Après adaptation du code java pour avoir des données ordonnées, nous avons la différence suivante entre le code original et le nouveau, avec `i`, une suite de valeur relative à la taille `(i = i + 1)` :
 
 ```diff
 <             c.add(random.nextInt());
@@ -141,8 +141,79 @@ Nous avons simplement adapté nos code sources pour le nouveau cas. Il suffit de
 
 ### Résultats expérimentaux
 
+#### ArrayList
+![Chargement du graphique...](plots/hypothese_arraylist.jpg)
+
+#### HashSet
+![Chargement du graphique...](plots/hypothese_hashset.jpg)
+
 ### Analyse des résultats expérimentaux
+Tout d'abord, nous avons totalement ignoré le cas du `LinkedList` qui a bien été
+traité par nos scripts mais qui, sans aucune surprise, ne reçoit quasiment aucun
+gain de performance (temps et utilisation mémoire).
+
+Ensuite, nous pouvons observer un gros changement positif dans le cas de la
+structure `ArrayList`, qui voit le temps des `contains` divisé par deux (de 12
+secondes à 6 secondes) et le temps de l'opération `remove` s'est totalement
+effondrée de 12 secondes à environ 100ms, tout cela dans le cas de collections
+de `500.000` éléments.
+
+En plus de cela, nous observons une diminution de l'utilisation mémoire assez
+importante, qui passe de `54Ko` à `47Ko` (`7Ko` gagnés) sur une collection de
+`500.000` éléments.
+
+Mais, ce n'est pas tout, l'`HashSet` est toujours bien plus devant
+l'`ArrayList`, avec nos changements, il divise son temps d'exécution par deux
+(de 1.3 secondes à 0.7 secondes). Quant à l'utilisation mémoire, elle est
+quasiment identique.
 
 ### Discussion des résultats expérimentaux
+L'`ArrayList` passe désormais d'un `remove` en `O(n)` à du `O(1)`, ce qui est
+très surprenant. On pourrait imaginer que l'implémentation Java de `ArrayList`
+fait qu'il regarde de suite dans la case `i` lors de la suppression, ce qui
+pourrait justifier une telle rapidité.
+
+Mais dans le cas du `contains`, il semblerait qu'il continue à parcourir les
+éléments de un à un jusqu'à ce qu'il trouve le `i` recherché.
+Mais le `contains` étant deux fois plus rapide dans le cas d'une suite
+`(i = i + 1)`, on pourrais assumer que cela est dû au cache du processeur qui
+peut parcourir rapidement une liste ordonné car il serait capable de charger un
+ensemble de valeurs rapidement avec une forte probabilité que le nombre
+recherché soit dans le cache.
+
+Quant à l'utilisation mémoire de `ArrayList`, il est difficile de s'exprimer.
+Cela pourrait être dû au fait que les valeurs aléatoire sont souvents codées sur
+plusieurs octets. L'implémentation Java des entiers fait probablement que cela
+prenne moins de place en mémoire lorsqu'on manipule des entiers de 2 à 16
+octets. Ce qui pourrait partiellement justifier la différence, mais pas un total
+de `7Ko`, il se passe définitivement quelque chose dans l'implémentation Java
+qui diminue la consommation mémoire dans notre cas.
+
+Dans le cas du `HashSet` nous assumons qu'il génère moins de relations entre les
+valeurs, moins de méta-données qui classifient les valeurs car elles sont
+relativement proches les unes des autres, le classement doit donc se voir plus
+efficace sur une suite avec un pas non-exponentiel.
+
+La recherche et la suppresion, sont **pas du tout** affectées,
+car la méthode de recherche doit être exactement la même, la classification doit
+donc avoir toujours la même effacitée qu'avant, tout comme pour le stockage qui
+est lui aussi pas affecté.
 
 ## Conclusion et travaux futurs
+La rapidité impressionnante de la suppresion dans l''`ArrayList` qui passe d'un
+temps d'exécution `O(1)` à du `O(n)` dans le cadre d'une suite `(i = i + 1)`
+pourrait être fausse dès que le pas est différent de `1`. On pourrait donc
+expérimenter un autre pas (ex. : 1000 ou 10). Une influence sur ce paramètre
+pourrait révéller des choses intéressante.
+
+De plus, nous pourrions expérimenter d'autres structure conçues pour des données
+ordonnées qui pourraient se révéler plus efficace que `HashSet` qui est
+spécialisé dans la recherche d'unicité et non pas d'ordonnement.
+
+Et en addition à tout cela, on pourrait essayer de partir de données avec un
+espace résévé dès la création de nos structure en fonction de la taille passée
+et attendue ; ce qui pourrait améliorer les temps et permettre d'avoir plus de
+valeurs en cache, car il se pourrait que notre structure ne soit pas capable
+d'avoir toutes les valeurs à la suite dans la mémoire en fonction de l'espace
+alloué au début.
+
