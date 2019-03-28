@@ -141,10 +141,10 @@ Nous avons simplement adapté nos code sources pour le nouveau cas. Il suffit de
 
 ### Résultats expérimentaux
 
-#### ArrayList
+#### 1 — ArrayList
 ![Chargement du graphique...](plots/hypothese_arraylist.jpg)
 
-#### HashSet
+#### 2 — HashSet
 ![Chargement du graphique...](plots/hypothese_hashset.jpg)
 
 ### Analyse des résultats expérimentaux
@@ -162,7 +162,7 @@ En plus de cela, nous observons une diminution de l'utilisation mémoire assez
 importante, qui passe de `54Ko` à `47Ko` (`7Ko` gagnés) sur une collection de
 `500.000` éléments.
 
-Mais, ce n'est pas tout, l'`HashSet` est toujours bien plus devant
+Mais, ce n'est pas tout, l'`HashSet` est toujours loin devant
 l'`ArrayList`, avec nos changements, il divise son temps d'exécution par deux
 (de 1.3 secondes à 0.7 secondes). Quant à l'utilisation mémoire, elle est
 quasiment identique.
@@ -194,14 +194,14 @@ valeurs, moins de méta-données qui classifient les valeurs car elles sont
 relativement proches les unes des autres, le classement doit donc se voir plus
 efficace sur une suite avec un pas non-exponentiel.
 
-La recherche et la suppresion, sont **pas du tout** affectées,
+La recherche et la suppression, ne sont **pas du tout** affectées,
 car la méthode de recherche doit être exactement la même, la classification doit
 donc avoir toujours la même effacitée qu'avant, tout comme pour le stockage qui
-est lui aussi pas affecté.
+est lui aussi n'est pas affecté.
 
 ## Conclusion et travaux futurs
 La rapidité impressionnante de la suppresion dans l''`ArrayList` qui passe d'un
-temps d'exécution `O(1)` à du `O(n)` dans le cadre d'une suite `(i = i + 1)`
+temps d'exécution `O(n)` à du `O(1)` dans le cadre d'une suite `(i = i + 1)`
 pourrait être fausse dès que le pas est différent de `1`. On pourrait donc
 expérimenter un autre pas (ex. : 1000 ou 10). Une influence sur ce paramètre
 pourrait révéller des choses intéressante.
@@ -211,7 +211,7 @@ ordonnées qui pourraient se révéler plus efficace que `HashSet` qui est
 spécialisé dans la recherche d'unicité et non pas d'ordonnement.
 
 Et en addition à tout cela, on pourrait essayer de partir de données avec un
-espace résévé dès la création de nos structure en fonction de la taille passée
+espace réservé dès la création de nos structure en fonction de la taille passée
 et attendue ; ce qui pourrait améliorer les temps et permettre d'avoir plus de
 valeurs en cache, car il se pourrait que notre structure ne soit pas capable
 d'avoir toutes les valeurs à la suite dans la mémoire en fonction de l'espace
