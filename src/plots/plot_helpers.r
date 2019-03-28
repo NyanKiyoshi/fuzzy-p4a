@@ -75,6 +75,12 @@ makePlotFromData <- function(
     if (yMax - yMin < 2) {
       yMin <- yMin - 1;
       yMax <- yMax + 1;
+    } else if (yMax < 15) {
+      yMin = 0;
+      yMax = 17;
+    } else if (yMax > 1000 && yMax < 60000) {
+      yMin = 0;
+      yMax = 80000;
     }
 
     plot <- makePlot(plot, title, data, y_attr)
@@ -98,6 +104,12 @@ makePlotFromData <- function(
     if (yMax - yMin < 2) {
       yMin <- yMin - 1;
       yMax <- yMax + 1;
+    } else if (yMax < 15) {
+      yMin = 0;
+      yMax = 17;
+    } else if (yMax > 1000 && yMax < 60000) {
+      yMin = 0;
+      yMax = 80000;
     }
 
     plot <- makePlotAxis(plot, data, x_label, y_label)
