@@ -79,7 +79,13 @@ Suite des commandes, ou script, à exécuter pour produire les données.
 
 ### Analyse des résultats préalables
 
-Explications précises et succinctes des résultats préalables.
+En regardant les graphiques générés, nous pouvons de suite remarquer que le temps d'éxécution et la consommation mémoire sont totalements différents selon la structure.
+
+- Au niveau du temps d'éxécution, le `HashSet` est largement plus rapide que les 2 autres structures pour l'accès et la suppression, cependant il est moins rapide pour l'insertion. <br/>
+De plus, l'`ArrayList` est légèrement plus performante que la `LinkedList` sur les 3 opérations.
+
+- Au niveau de la consommation mémoire, c'est l'inverse puisque c'est le `HashSet` qui est le plus gourmand, peu importe l'opération réalisée.<br/>
+Pour l'accès et la suppression, la `LinkedList` est un peu plus rapide que l'`ArrayList` mais quand il s'agit d'insérer des éléments la consommation mémoire de la liste chaînée explose à partir d'un certain nombre d'éléments.
 
 ### Discussion des résultats préalables
 
