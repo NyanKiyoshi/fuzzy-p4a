@@ -4,49 +4,44 @@
 
 ## Problème
 
-Nous recherchons la structure la plus performante point de vue de temps
-d'exécution et d'utilisation mémoire pour répondre à nos besoins (langage Java).
+Lors du développement d'une application en Java (ou dans un autre langage), nous utilisons très régulièrement des `Collections` pour stocker des données. Cependant chaque implémentation de cette interface possède des avantages et des inconvénients, tout dépend de l'utilisation que l'on va en faire.
+Notre but est de comparer le temps d'éxécution et d'utilisation mémoire de différentes collections afin de voir laquelle est la plus performante.
 
-On souhaite avoir une collection qui peut contenir un nombre
-aléatoire de valeurs où l'on peut ensuite toujours, aussi efficacement que
-possible, sur une valeur aléatoire, soit :
-- L'ajouter ;
-- Soit rechercher son exitance ;
-- Soit la supprimer de la structure.
+Pour ce faire, nous allons tester 3 opérations différentes :
+- L'*insertion* d'un élément
+- L'*accès* à un élément
+- La *suppression* d'un élément
 
-Pour cela, nous souhaitons donc tester les structures suivantes de l'interface
-`ICollection` :
-- `ArrayList` ;
-- `LinkedList` ;
-- Et `HashSet`.
+Nous avons choisi de réaliser nos tests sur les structures suivantes de l'interface `ICollection` :
+- `ArrayList`
+- `LinkedList`
+- `HashSet`
 
-Afin d'observer les différences de temps d'exécution et d'utilisation
-mémoire, nous allons faire jouer les paramètres suivants afin
+Afin d'observer les différences de temps d'exécution et d'utilisation mémoire, nous allons faire jouer les paramètres suivants afin
 de pouvoir choisir laquelle répond le mieux à notre problème :
-- Le nombre de test par structure et opération ;
-- Et le nombre d'éléments à être traités par chaque opération.
+- Le nombre de tests par opération
+- La taille de notre structure
 
 ## Dispositif expérimental
 
 ### Application
 
-[code source de l'application](chemin)
+[Code source de l'application Java](chemin)
+
 ```
-- Un programme Java qui prend : STRUCTURE OPERATION SIZE
+java Main <interface> <operation> <size>
+```
+```
+interface:
+    0 => ArrayList
+    1 => LinkedList
+    2 => HashSet
 
-  Structure:
-  	0 => ArrayList
-  	1 => LinkedList
-  	2 => HashSet
-
-  Operation:
+operation:
   	0 => Add
   	1 => Contains
   	2 => Remove
-
-- Un programme Bash qui, de manière imbriquée, teste les différentes structures
-  en leur passant une taille aléatoire.
-```
+ ```
 
 ### Environnement de test
 
@@ -66,19 +61,19 @@ Suite des commandes, ou script, à exécuter pour produire les données.
 
 ### Temps d'exécution
 
-| Opération            | Tableau                   | Liste chaînée             |                           |
+| Opération            | ArrayList                 | LinkedList                | HashSet                   |
 |----------------------|---------------------------|---------------------------|---------------------------|
 | Insertion            | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
 | Accès                | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
-|                      | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
+| Suppression          | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
 
 ### Consommation mémoire
 
-| Opération            | Tableau                   | Liste chaînée             |                           |
+| Opération            | ArrayList                 | LinkedList                | HashSet                   |
 |----------------------|---------------------------|---------------------------|---------------------------|
 | Insertion            | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
 | Accès                | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
-|                      | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
+| Suppression          | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
 
 ### Analyse des résultats préalables
 
