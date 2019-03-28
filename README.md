@@ -71,10 +71,10 @@ cpu cores	: 2
 
 | Opération            | ArrayList                 | LinkedList                | HashSet                   | Comparaison               |
 |----------------------|---------------------------|---------------------------|---------------------------|---------------------------|
-| Insertion            | ![plot](plots/Main_ExecTime_ArrayList_add_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_add_.jpg) | ![plot](plots/Main_ExecTime_HashSet_add_.jpg) | ![plot](plots/Main_ExecTime_toutes_add_.jpg) |
-| Accès                | ![plot](plots/Main_ExecTime_ArrayList_contains_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_contains_.jpg) | ![plot](plots/Main_ExecTime_HashSet_contains_.jpg) | ![plot](plots/Main_ExecTime_toutes_contains_.jpg) |
-| Suppression          | ![plot](plots/Main_ExecTime_ArrayList_remove_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_remove_.jpg) | ![plot](plots/Main_ExecTime_HashSet_remove_.jpg) | ![plot](plots/Main_ExecTime_toutes_remove_.jpg) |
-| Vue d'ensemble       | ![plot](plots/Main_ExecTime_ArrayList_tous_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_tous_.jpg) | ![plot](plots/Main_ExecTime_HashSet_tous_.jpg) |                          |
+| Insertion            | ![plot](plots/Main_ExecTime_ArrayList_add_.jpg)<br/>*Zoom de 0 à 2s* | ![plot](plots/Main_ExecTime_LinkedList_add_.jpg)<br/>*Zoom de 0 à 2s* | ![plot](plots/Main_ExecTime_HashSet_add_.jpg)<br/>*Zoom de 0 à 2s* | ![plot](plots/Main_ExecTime_toutes_add_.jpg)<br/>*Zoom de 0 à 2s* |
+| Accès                | ![plot](plots/Main_ExecTime_ArrayList_contains_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_contains_.jpg) | ![plot](plots/Main_ExecTime_HashSet_contains_.jpg)<br/>*Zoom de 0 à 2s* | ![plot](plots/Main_ExecTime_toutes_contains_.jpg) |
+| Suppression          | ![plot](plots/Main_ExecTime_ArrayList_remove_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_remove_.jpg) | ![plot](plots/Main_ExecTime_HashSet_remove_.jpg)<br/>*Zoom de 0 à 2s* | ![plot](plots/Main_ExecTime_toutes_remove_.jpg) |
+| Vue d'ensemble       | ![plot](plots/Main_ExecTime_ArrayList_tous_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_tous_.jpg) | ![plot](plots/Main_ExecTime_HashSet_tous_.jpg)<br/>*Zoom de 0 à 2s* |                          |
 
 ### Consommation mémoire
 
