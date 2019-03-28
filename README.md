@@ -6,7 +6,6 @@
   <p>KOCAK Mikail, KOENIG Clément</p>
 </div>
 
-
 ## Problème
 
 Lors du développement d'une application en Java (ou dans un autre langage), nous utilisons très régulièrement des `Collections` pour stocker des données. Cependant, chaque implémentation de cette interface possède des avantages et des inconvénients, tout dépend de l'utilisation que l'on va en faire.
@@ -213,7 +212,7 @@ qui diminue la consommation mémoire dans notre cas.
 Dans le cas du `HashSet` nous assumons qu'il génère moins de relations entre les
 valeurs, moins de métadonnées qui classifient les valeurs car elles sont
 relativement proches les unes des autres, le classement doit donc se voir plus
-efficace sur une suite avec un pas non-exponentiel.
+efficace sur une suite avec un pas autre que `1`.
 
 La recherche et la suppression, ne sont **pas du tout** affectées,
 car la méthode de recherche doit être exactement la même, la classification doit
@@ -221,11 +220,11 @@ donc avoir toujours la même efficacité qu'avant, tout comme pour le stockage q
 est lui aussi n'est pas affecté.
 
 ## Conclusion et travaux futurs
-La rapidité impressionnante de la suppression dans l''`ArrayList` qui passe d'un
+La rapidité impressionnante de la suppression dans l'`ArrayList` qui passe d'un
 temps d'exécution `O(n)` à du `O(1)` dans le cadre d'une suite `(i = i + 1)`
 pourrait être fausse dès que le pas est différent de `1`. On pourrait donc
 expérimenter un autre pas (ex. : 1000 ou 10). Une influence sur ce paramètre
-pourrait révéler des choses intéressante.
+pourrait révéler des choses intéressantes.
 
 De plus, nous pourrions expérimenter d'autres structures conçues pour des données
 ordonnées qui pourraient se révéler plus efficace que `HashSet` qui est
