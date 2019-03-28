@@ -81,16 +81,18 @@ Suite des commandes, ou script, à exécuter pour produire les données.
 
 En regardant les graphiques générés, nous pouvons de suite remarquer que le temps d'éxécution et la consommation mémoire sont totalements différents selon la structure.
 
-- Au niveau du temps d'éxécution, le `HashSet` est largement plus rapide que les 2 autres structures pour l'accès et la suppression, cependant il est moins rapide pour l'insertion. <br/>
-De plus, l'`ArrayList` est légèrement plus performante que la `LinkedList` sur les 3 opérations.
+- Au niveau du temps d'éxécution, le `HashSet` est largement plus rapide que les deux autres structures pour l'accès et la suppression, cependant il est moins rapide pour l'insertion. <br/>
+De plus, l'`ArrayList` est légèrement plus performante que la `LinkedList` sur les trois opérations.
 
 - Au niveau de la consommation mémoire, c'est l'inverse puisque c'est le `HashSet` qui est le plus gourmand, peu importe l'opération réalisée.<br/>
 Pour l'accès et la suppression, la `LinkedList` est un peu plus rapide que l'`ArrayList` mais quand il s'agit d'insérer des éléments la consommation mémoire de la liste chaînée explose à partir d'un certain nombre d'éléments.
 
 ### Discussion des résultats préalables
 
-Explications précises et succinctes sur ce que les limites des résultats
-préalables et ce qu'ils ne permettent pas de vérifier.
+Le `HashSet` est beaucoup plus rapide que les deux autres structures étudiées pour l'accès et la suppression car les valeurs qu'il contient son triées. Cependant, cela implique qu'il met plus de temps à insérer un élément car il doit réaliser un certain nombre de comparaisons afin de trouver à quel position l'élément doit être inséré. <br/>
+Cela va également augmenter drastiquement sa consommation mémoire, ce qui est probablement dû à la classification des données.
+
+Quant à la `LinkedList`, elle crée des maillons à chaque fois qu'on souhaite insérer un nouvel élément, c'est donc pour cela qu'elle devient rapidement gourmande par rapport aux autres structures notamment lorsqu'elle atteint une taille assez conséquente.
 
 ## Etude approfondie
 
