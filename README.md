@@ -71,19 +71,19 @@ cpu cores	: 2
 
 | Opération            | ArrayList                 | LinkedList                | HashSet                   | Comparaison               |
 |----------------------|---------------------------|---------------------------|---------------------------|---------------------------|
-| Insertion            | ![plot](plots/ExecTime_ArrayList_add_.jpg) | ![plot](plots/ExecTime_LinkedList_add_.jpg) | ![plot](plots/ExecTime_HashSet_add_.jpg) | ![plot](plots/ExecTime_toutes_add_.jpg) |
-| Accès                | ![plot](plots/ExecTime_ArrayList_contains_.jpg) | ![plot](plots/ExecTime_LinkedList_contains_.jpg) | ![plot](plots/ExecTime_HashSet_contains_.jpg) | ![plot](plots/ExecTime_toutes_contains_.jpg) |
-| Suppression          | ![plot](plots/ExecTime_ArrayList_remove_.jpg) | ![plot](plots/ExecTime_LinkedList_remove_.jpg) | ![plot](plots/ExecTime_HashSet_remove_.jpg) | ![plot](plots/ExecTime_toutes_remove_.jpg) |
-| Vue d'ensemble       | ![plot](plots/ExecTime_ArrayList_tous_.jpg) | ![plot](plots/ExecTime_LinkedList_tous_.jpg) | ![plot](plots/ExecTime_HashSet_tous_.jpg) |                          |
+| Insertion            | ![plot](plots/Main_ExecTime_ArrayList_add_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_add_.jpg) | ![plot](plots/Main_ExecTime_HashSet_add_.jpg) | ![plot](plots/Main_ExecTime_toutes_add_.jpg) |
+| Accès                | ![plot](plots/Main_ExecTime_ArrayList_contains_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_contains_.jpg) | ![plot](plots/Main_ExecTime_HashSet_contains_.jpg) | ![plot](plots/Main_ExecTime_toutes_contains_.jpg) |
+| Suppression          | ![plot](plots/Main_ExecTime_ArrayList_remove_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_remove_.jpg) | ![plot](plots/Main_ExecTime_HashSet_remove_.jpg) | ![plot](plots/Main_ExecTime_toutes_remove_.jpg) |
+| Vue d'ensemble       | ![plot](plots/Main_ExecTime_ArrayList_tous_.jpg) | ![plot](plots/Main_ExecTime_LinkedList_tous_.jpg) | ![plot](plots/Main_ExecTime_HashSet_tous_.jpg) |                          |
 
 ### Consommation mémoire
 
 | Opération            | ArrayList                 | LinkedList                | HashSet                   | Comparaison               |
 |----------------------|---------------------------|---------------------------|---------------------------|---------------------------|
-| Insertion            | ![plot](plots/MemoryUsage_ArrayList_add_.jpg) | ![plot](plots/MemoryUsage_LinkedList_add_.jpg) | ![plot](plots/MemoryUsage_HashSet_add_.jpg) | ![plot](plots/MemoryUsage_toutes_add_.jpg) |
-| Accès                | ![plot](plots/MemoryUsage_ArrayList_contains_.jpg) | ![plot](plots/MemoryUsage_LinkedList_contains_.jpg) | ![plot](plots/MemoryUsage_HashSet_contains_.jpg) | ![plot](plots/MemoryUsage_toutes_contains_.jpg) |
-| Suppression          | ![plot](plots/MemoryUsage_ArrayList_remove_.jpg) | ![plot](plots/MemoryUsage_LinkedList_remove_.jpg) | ![plot](plots/MemoryUsage_HashSet_remove_.jpg) | ![plot](plots/MemoryUsage_toutes_remove_.jpg) |
-| Vue d'ensemble       | ![plot](plots/MemoryUsage_HashSet_tous_.jpg) | ![plot](plots/MemoryUsage_LinkedList_tous_.jpg) | ![plot](plots/MemoryUsage_ArrayList_tous_.jpg) |                          |
+| Insertion            | ![plot](plots/Main_MemoryUsage_ArrayList_add_.jpg) | ![plot](plots/Main_MemoryUsage_LinkedList_add_.jpg) | ![plot](plots/Main_MemoryUsage_HashSet_add_.jpg) | ![plot](plots/Main_MemoryUsage_toutes_add_.jpg) |
+| Accès                | ![plot](plots/Main_MemoryUsage_ArrayList_contains_.jpg) | ![plot](plots/Main_MemoryUsage_LinkedList_contains_.jpg) | ![plot](plots/Main_MemoryUsage_HashSet_contains_.jpg) | ![plot](plots/Main_MemoryUsage_toutes_contains_.jpg) |
+| Suppression          | ![plot](plots/Main_MemoryUsage_ArrayList_remove_.jpg) | ![plot](plots/Main_MemoryUsage_LinkedList_remove_.jpg) | ![plot](plots/Main_MemoryUsage_HashSet_remove_.jpg) | ![plot](plots/Main_MemoryUsage_toutes_remove_.jpg) |
+| Vue d'ensemble       | ![plot](plots/Main_MemoryUsage_HashSet_tous_.jpg) | ![plot](plots/Main_MemoryUsage_LinkedList_tous_.jpg) | ![plot](plots/Main_MemoryUsage_ArrayList_tous_.jpg) |                          |
 
 ### Analyse des résultats préalables
 
