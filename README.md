@@ -54,10 +54,11 @@ Extrait de `/proc/cpuinfo` :
 
 ### Description de la démarche systématique
 
-Description de la démarche systématique et de l'espace d'exploration pour chaque paramètres.
-
 ```
-Suite des commandes, ou script, à exécuter pour produire les données.
+./run-all.sh
+  -> javac Main.java : compile le code Java
+  -> ./src/benchmark.sh : lance la batterie de tests contre le programme Java (compilé)
+  -> Rscript ./src/plots/main.r : génère les graphiques à partir des données
 ```
 
 ## Résultats préalables
