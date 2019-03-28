@@ -26,7 +26,9 @@ de pouvoir choisir laquelle répond le mieux à notre problème :
 
 ### Application
 
-[Code source de l'application Java](chemin)
+1. [Code source de l'application Java](src/java/Main.java)
+2. [Code source du script Bash](src/benchmark.sh)
+3. [Code source des scripts R](src/plots)
 
 ```
 java Main <interface> <operation> <size>
